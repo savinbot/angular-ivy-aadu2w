@@ -1,0 +1,65 @@
+<div class="row">
+  <button #btn>Click me!</button>
+  <strong>{{count}} times!</strong>
+  <!-- Preloader shows before the data loads-->
+  <div class="no-data text-center col-md-12" *ngIf="preLoader">
+    <img src="assets/preloader.gif" class="preloader-icon" alt="No modules">
+  </div>
+  <!--Add project block-->
+  <div class="col-sm-6 col-lg-3"  *ngIf="!preLoader">
+    <div class="card text-white bg-success" data-toggle="modal" (click)="largeModal.show()">
+      <div class="card-body">
+        <div class="h1 text-right mb-4">
+          <i class="icon-plus"></i>
+        </div>
+        <div class="h4 mb-0">Create module</div>
+        <small class="text-muted text-uppercase font-weight-bold">New module add</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-3" *ngFor="let module of ProjectModule | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
+    <div class="card">
+      <div class="card-body">
+        <div class="btn-group float-right" dropdown>
+          <button type="button" class="btn  dropdown-toggle p-0" dropdownToggle>
+            <i class="icon-settings"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+            <a class="dropdown-item" href="#" [routerLink]="[module.$key]"><i class="icon-pencil"></i> Edit</a>
+            <a class="dropdown-item" href="#" (click)="deleteProject(module)"><i class="icon-trash"></i> Delete</a>
+          </div>
+        </div>
+        <h4 class="mb-0">{{module.project_name}}</h4>
+        <p>{{module.project_status == 'true' ? 'Active' : 'Not active' }}</p>
+      </div>
+      <div class="card-footer">
+        <a class="font-xs btn-block" href="#">View module data <i class="fa fa-angle-right float-right font-lg"></i></a>
+      </div>
+    </div>
+  </div><!--/.col-->
+
+</div>
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content container-fluid">
+      <div class="modal-header">
+        <h4 class="modal-title">Choose your module</h4>
+        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body row">
+        <a class="col-sm-6 col-lg-3" *ngFor="let module of Module | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;" href="#">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="mb-0">{{module.module_name}}</h4>
+              <p>{{module.module_description}}</p>
+            </div>
+          </div>
+        </a><!--/.col-->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

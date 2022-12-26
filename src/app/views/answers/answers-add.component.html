@@ -1,0 +1,68 @@
+<div class="card">
+  <div class="card-header">
+    <strong>Add Answer</strong>
+  </div>
+
+  <div class="card-body">
+  <!-- Answer form -->
+  <form [formGroup]="answerForm" (ngSubmit)="submitAnswerData()" novalidate>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+
+          <div class="col-md-12 mb-3">
+            <label class="col-form-label">Answer category</label>
+            <div class="controls">
+              <div class="input-group">
+                <!--<input type="text" formControlName="answer_category" class="form-control" required>-->
+
+                <select formControlName="answer_category" class="form-control no-radius">
+                  <option>--Select category</option>
+                  <option *ngFor="let category of Category">{{category.category_name}}</option>
+                </select>
+
+
+              </div>
+                <!--<p *ngIf="answer_category.errors?.minlength" class="error"><sup>*</sup>Answer category shouldn't be less than 1 words</p>-->
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="col-form-label">Question</label>
+            <div class="controls">
+              <div class="input-group">
+                <input type="text" formControlName="question" class="form-control" required>
+              </div>
+            </div>
+            <p *ngIf="question.errors?.minlength" class="error"><sup>*</sup>Question category shouldn't be less than 1 words</p>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="col-form-label">Answer</label>
+            <div class="controls">
+              <div class="input-group">
+                <input type="text" formControlName="answer" class="form-control" required>
+              </div>
+            </div>
+            <!-- Showing errors using getter method -->
+            <p *ngIf="answer.touched && answer.invalid" class="error"><sup>*</sup>Please add answer</p>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary mr-1" [disabled]="!answerForm.valid">Add Answer</button>
+          <button type="button" class="btn btn-secondary gap-right" (click)="ResetForm()">Reset</button>
+        </div>
+
+      </div>
+    </div>
+  </form><!-- Answer form ends-->
+  </div>
+
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

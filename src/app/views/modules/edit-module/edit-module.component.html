@@ -1,0 +1,103 @@
+<div class="card">
+  <div class="card-header">
+    <strong>Edit Project - {{project_name.value}}</strong>
+    <div class="card-actions">
+      <a (click)="goBack()">
+        <i class="icon-arrow-left-circle"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <!-- Project form -->
+    <form [formGroup]="editForm" (ngSubmit)="updateForm()" novalidate>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="row">
+
+            <div class="col-md-12 mb-3">
+              <label class="col-form-label">Project Status</label>
+              <div class="controls">
+                <div class="input-group">
+                  <!--<input type="text" formControlName="answer_category" class="form-control" required>-->
+
+                  <select [(ngModel)]="project_status" formControlName="project_status" class="form-control no-radius">
+                    <option value="true">Active</option>
+                    <option value="false">Not active</option>
+                  </select>
+
+
+                </div>
+                <!--<p *ngIf="answer_category.errors?.minlength" class="error"><sup>*</sup>Answer category shouldn't be less than 1 words</p>-->
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label class="col-form-label">Project Name</label>
+              <div class="controls">
+                <div class="input-group">
+                  <input type="text" formControlName="project_name" class="form-control" required>
+                </div>
+              </div>
+              <p *ngIf="project_name.errors?.minlength" class="error"><sup>*</sup>Project name shouldn't be less than 1
+                words</p>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label class="col-form-label">Select Telegram channel or group you want to add</label>
+              <div class="controls">
+                <div class="input-group">
+                  <!--<input type="text" formControlName="answer_category" class="form-control" required>-->
+
+                  <select [(ngModel)]="project_type" formControlName="project_type" class="form-control no-radius">
+                    <option value="channel">Channel</option>
+                    <option value="group">Group</option>
+                  </select>
+
+                </div>
+                <!--<p *ngIf="answer_category.errors?.minlength" class="error"><sup>*</sup>Answer category shouldn't be less than 1 words</p>-->
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label class="col-form-label">Telegram {{project_type}} link</label>
+              <div class="controls">
+                <div class="input-group">
+                  <input type="text" formControlName="project_type_link" class="form-control" required>
+                </div>
+              </div>
+              <!-- Showing errors using getter method -->
+              <p *ngIf="project_type_link.errors?.minlength" class="error"><sup>*</sup>Telegram link shouldn't be 1
+                characters</p>
+            </div>
+
+
+            <div class="col-md-12 mb-3">
+              <label class="col-form-label">Telegram {{project_type}} administrator Bot Token</label>
+              <div class="controls">
+                <div class="input-group">
+                  <input type="text" formControlName="telegram_token" class="form-control" required>
+                </div>
+              </div>
+              <!-- Showing errors using getter method -->
+              <p *ngIf="telegram_token.errors?.minlength" class="error"><sup>*</sup>Telegram token shouldn't be 45
+                characters</p>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary mr-1" [disabled]="!editForm.valid">Update Project</button>
+          </div>
+
+        </div>
+      </div>
+    </form><!-- Project form ends-->
+  </div>
+
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

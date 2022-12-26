@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-header">
+    <strong>Edit Category</strong>
+    <div class="card-actions">
+      <a (click)="goBack()">
+        <i class="icon-arrow-left-circle"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <!-- Answer form -->
+    <form [formGroup]="editForm" (ngSubmit)="updateForm()" novalidate>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="row">
+
+            <div class="col-md-12 mb-3">
+              <label class="col-form-label">Category name</label>
+              <div class="controls">
+                <div class="input-group">
+                  <input type="text" formControlName="category_name" class="form-control" required>
+                </div>
+                <p *ngIf="category_name.errors?.minlength" class="error"><sup>*</sup>Category name shouldn't be less than 1 words</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary mr-1" [disabled]="!editForm.valid">Update Category</button>
+          </div>
+
+        </div>
+      </div>
+    </form><!-- Category form ends-->
+  </div>
+
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

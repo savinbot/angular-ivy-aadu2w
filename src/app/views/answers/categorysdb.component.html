@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header">
+    <strong class="float-left">Categorys List</strong>
+    <!-- It won't show if there is no category data -->
+    <div class="card-actions">
+      <a [routerLink]="['/answers/categoryadd']" class="" *ngIf="hideWhenNoCategory">
+        <i class="icon-plus"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <!-- Preloader shows before the data loads-->
+    <div class="no-data text-center" *ngIf="preLoader">
+      <img src="assets/preloader.gif" class="preloader-icon" alt="No category">
+    </div>
+
+    <!-- No data shows when their is no answer data available -->
+    <div class="no-data text-center" *ngIf="noData">
+      <p class="nodata-msg">No categorys added yet!</p>
+      <a [routerLink]="['/answers/categoryadd']" class="btn btn-success">
+        <i class="icon-plus"></i>
+        Add Category
+      </a>
+    </div>
+
+    <!-- Showing answers data -->
+    <div *ngIf="hideWhenNoCategory">
+      <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+        <thead>
+        <tr>
+          <th scope="col">Category Id</th>
+          <th scope="col">Category Name</th>
+          <th class="text-center" scope="col">Edit</th>
+          <th class="text-center" scope="col">Del</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- *ngFor loop iterates over Category array and fetch the category's data -->
+        <!-- paginate pipe will add pagination in category's list, it won't show if items are less then 7 -->
+        <tr *ngFor="let category of Category | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
+          <td>{{category.$key}}</td>
+          <td>{{category.category_name}}</td>
+          <td class="text-center action-block">
+            <i class="icon-pencil" [routerLink]="[category.$key]"></i></td>
+          <td class="text-center action-block"><i class="icon-trash" (click)="deleteCategory(category)"></i></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination -->
+    <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true"></pagination-controls>
+
+  </div>
+</div>
+

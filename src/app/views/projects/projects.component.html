@@ -1,0 +1,41 @@
+<div class="row">
+  <!-- Preloader shows before the data loads-->
+  <div class="no-data text-center col-md-12" *ngIf="preLoader">
+    <img src="assets/preloader.gif" class="preloader-icon" alt="No answer">
+  </div>
+  <!--Add project block-->
+  <div class="col-sm-6 col-lg-3"  *ngIf="!preLoader">
+    <div class="card text-white bg-success" [routerLink]="['/projects/add']">
+      <div class="card-body">
+        <div class="h1 text-right mb-4">
+          <i class="icon-plus"></i>
+        </div>
+        <div class="h4 mb-0">Create project</div>
+        <small class="text-muted text-uppercase font-weight-bold">New project add</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-3" *ngFor="let project of Project | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
+    <div class="card">
+      <div class="card-body">
+        <div class="btn-group float-right" dropdown>
+          <button type="button" class="btn  dropdown-toggle p-0" dropdownToggle>
+            <i class="icon-settings"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+            <a class="dropdown-item" href="#" [routerLink]="[project.$key]"><i class="icon-pencil"></i> Edit</a>
+            <a class="dropdown-item" href="#" (click)="deleteProject(project)"><i class="icon-trash"></i> Delete</a>
+          </div>
+        </div>
+        <h4 class="mb-0">{{project.project_name}}</h4>
+        <p>{{project.project_status == 'true' ? 'Active' : 'Not active' }}</p>
+        <p>Users in a {{project.project_type}} - {{project.project_users_count}}</p>
+      </div>
+      <div class="card-footer">
+        <a class="font-xs btn-block" href="#">View project modules <i class="fa fa-angle-right float-right font-lg"></i></a>
+      </div>
+    </div>
+  </div><!--/.col-->
+
+</div>
